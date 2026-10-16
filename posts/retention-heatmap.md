@@ -6,7 +6,7 @@ title: "Do Your Customers Come Back? Building a Retention Heatmap in Seaborn"
 
 *Nathan McCauley · STAT 386 · October 2026*
 
-Imagine you're a product manager, and your store's monthly orders keep going up. Good news, right? Not necessarily. Total orders can grow even if most new customers buy once and never return, because a steady stream of new people hides everyone who left. To see whether customers actually stick around, product teams look at **retention**, and one of the clearest ways to show it is a **cohort retention heatmap**.
+Imagine you're a product manager, and your store's monthly orders keep going up. Good news, right? Not necessarily. Total orders can grow even if most new customers buy once and never return, because new people keep replacing the ones who left. To see whether customers actually stick around, product teams look at **retention**, and one of the clearest ways to show it is a **cohort retention heatmap**.
 
 In this tutorial you'll build one with pandas and seaborn, and, just as important, learn how to read it.
 
@@ -42,7 +42,7 @@ orders.head()
 | 13047 | 2010-12-01 |
 | 13047 | 2010-12-01 |
 
-Nothing here is specific to online shopping. These steps work on any data with an ID and a date: app logins, gym check-ins, or library visits.
+These steps work on any data with an ID and a date, like app logins or gym check-ins.
 
 ## Step 1: Build the cohort table
 
@@ -96,7 +96,7 @@ Here is the top-left corner of the result:
 | 2011-02 | 100% | 19% | 19% | 28% |
 | 2011-03 | 100% | 15% | 25% | 20% |
 
-That's 16 of the 144 numbers in the full table. Finding a pattern in a wall of percentages is hard, and that's exactly the problem a heatmap solves.
+That's only 16 of 144 numbers. Finding a pattern in a wall of percentages is hard, which is exactly the problem a heatmap solves.
 
 ## Step 2: Plot it with `sns.heatmap`
 
@@ -128,12 +128,12 @@ ax.set_ylabel("Cohort (month of first order)")
 plt.show()
 ```
 
-Here is what each change does:
+What each change does:
 
 - **`annot=True, fmt=".0%"`** prints the value in each cell as a whole-number percentage, so readers don't have to guess from the color.
 - **`cmap="Blues"`** uses a *sequential* palette: one color that goes from light to dark, where darker means more customers came back. Sequential palettes fit data that runs from low to high. A *diverging* palette like `"coolwarm"` is meant for data with a meaningful middle point, which retention doesn't have.
 - **`vmin=0, vmax=0.5`** sets the range of the color scale. Without a cap, the 100% in month 0 sets the top of the scale and squeezes everything else together. Capping it at 50% spends the color range on the values we care about, and month 0 simply shows as the darkest shade.
-- **The title, axis labels, and color bar label** tell readers what they're looking at without reading the code.
+- **Labels and a title** tell readers what they're looking at without reading the code.
 
 ![Seaborn heatmap of monthly customer retention for 12 cohorts, December 2010 to November 2011, using a blue color scale with the percentage printed in each cell. Month 0 is 100% for every cohort. The December 2010 cohort is darker than the rest, around 32 to 40% in most months and 50% in month 11, while later cohorts are mostly between 15 and 30%. The bottom-right triangle is empty because newer cohorts have fewer months of data.](images/retention_heatmap.png)
 
@@ -143,7 +143,7 @@ A retention heatmap can be read in four directions, and each one answers a diffe
 
 1. **Across a row: how does one cohort change over time?** The January 2011 cohort falls to 22% in month 1 but climbs to 36% by month 10. For this store, customers who return tend to keep returning, so retention doesn't simply fade.
 2. **Down a column: are newer cohorts better or worse?** Compare cohorts at the same age. In month 1, the December 2010 cohort kept 37% of its customers, while every later cohort kept between 15% and 24%.
-3. **Along a diagonal: did something happen in a specific month?** Cells on the same diagonal happened in the same calendar month. The last cell in each row is November 2011, and it's the highest value in almost every row. That's holiday shopping, not a change in loyalty. If you only read across rows, you might mistake it for retention improving over time.
+3. **Along a diagonal: did something happen in a specific month?** Cells on the same diagonal happened in the same calendar month. The last cell in each row is November 2011, and it's the highest value in almost every row. That's holiday shopping, not a change in loyalty.
 4. **The empty triangle: is data missing?** No. Newer cohorts haven't existed long enough to have a month 6 or month 10 yet.
 
 One caution: the December 2010 cohort isn't really a group of *new* customers. The data starts on December 1, 2010, so anyone who ordered that month lands in it, including long-time customers whose actual first order was years earlier. That's part of why it looks so loyal. Before you give a cohort credit, check where your data begins.
@@ -152,9 +152,9 @@ One caution: the December 2010 cohort isn't really a group of *new* customers. T
 
 To recap, building a retention heatmap takes five steps:
 
-1. Label each customer with a cohort (the month of their first activity).
-2. Count the months since their first activity.
-3. Build a retention table: unique customers per cohort and month, divided by cohort size.
+1. Label each customer with a cohort.
+2. Count the months since their first order.
+3. Divide unique customers per cohort and month by cohort size.
 4. Plot it with `sns.heatmap`, using annotations, a sequential palette, and a capped color scale.
 5. Read it across rows, down columns, and along diagonals.
 
@@ -162,8 +162,8 @@ To recap, building a retention heatmap takes five steps:
 
 Helpful resources:
 
-- [seaborn's `heatmap` documentation](https://seaborn.pydata.org/generated/seaborn.heatmap.html), which lists every argument used here and more
-- [pandas guide to `groupby`](https://pandas.pydata.org/docs/user_guide/groupby.html), including how `transform` differs from `agg`
-- [The original UCI Online Retail dataset](https://archive.ics.uci.edu/dataset/352/online+retail), if you want to work with the full transaction data
+- [seaborn's `heatmap` documentation](https://seaborn.pydata.org/generated/seaborn.heatmap.html)
+- [pandas guide to `groupby`](https://pandas.pydata.org/docs/user_guide/groupby.html), including `transform`
+- [The original UCI Online Retail dataset](https://archive.ics.uci.edu/dataset/352/online+retail)
 
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
