@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+/.quarto/
+.DS_Store
+posts/**/.venv/

@@ -1,0 +1,21 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - .nojekyll
+
+website:
+  title: "Nathan McCauley | Data Science Blog"
+  site-url: "https://nmccaul.github.io/tutorial_blog/"
+  description: "STAT 386 tutorials and data science posts"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/nmccaul/tutorial_blog
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    code-copy: true
