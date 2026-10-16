@@ -1,1 +1,0 @@
-Sitemap: https://nmccaul.github.io/tutorial_blog/sitemap.xml
