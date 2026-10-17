@@ -88,6 +88,8 @@ The full table has 144 numbers, which is too many to scan. Patterns are a lot ea
 
 ## Step 2: Plot it with `sns.heatmap`
 
+[Seaborn](https://seaborn.pydata.org/tutorial/introduction.html) is a Python plotting library built on top of matplotlib. It works directly with pandas DataFrames and makes charts like heatmaps in a line or two, where plain matplotlib would take a lot more code. If you don't have it yet, run `pip install seaborn`.
+
 The quickest version is one line:
 
 ```python
