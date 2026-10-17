@@ -84,7 +84,7 @@ retention = active.div(cohort_size, axis=0)
 | 2011-02 | 100% | 19% | 19% | 28% |
 | 2011-03 | 100% | 15% | 25% | 20% |
 
-The full table has 144 numbers, which is too many to scan. That's where the heatmap comes in.
+The full table has 144 numbers, which is too many to scan. Patterns are a lot easier to spot as colors.
 
 ## Step 2: Plot it with `sns.heatmap`
 
@@ -125,14 +125,14 @@ plt.show()
 
 ## Step 3: Read the heatmap
 
-There are a few ways to read this chart:
+I read this chart in four directions:
 
 - **Across a row** shows one cohort over time. January 2011 drops to 22% in month 1 but is back up to 36% by month 10, so people who return tend to keep returning.
 - **Down a column** compares cohorts at the same age. In month 1, December 2010 kept 37% of its customers, and every later cohort kept 15–24%.
 - **Along a diagonal** shows the same calendar month. The last cell in most rows is November 2011, and it's usually the highest in its row. That's holiday shopping, not better loyalty.
 - **The empty triangle** isn't missing data. Newer cohorts just haven't been around long enough.
 
-The December 2010 cohort also needs a warning. The data starts on December 1, 2010, so that cohort includes long-time customers whose real first order was earlier. That's probably part of why it looks so loyal, so check where your data starts before reading too much into the first cohort.
+Be careful with the December 2010 cohort. The data starts on December 1, 2010, so that cohort includes long-time customers whose real first order was earlier. That's probably part of why it looks so loyal, so check where your data starts before reading too much into the first cohort.
 
 ## Try it yourself
 
