@@ -47,6 +47,30 @@ If you want to do something similar, here's the process in four steps.
 3. Keep the PM jobs. I kept titles matching `product manag`, `product owner` or `associate product manager`. My first version also matched "APM," but that pulled in an engineering job at Elastic, since APM also means "application performance monitoring."
 4. Turn text into columns (`clean.py`). The descriptions come back as HTML, so I used BeautifulSoup to get plain text and then regular expressions to pull out pay ranges, years of experience, seniority from the title, and yes/no flags for 11 skills and for AI.
 
+Here's what steps 3 and 4 look like for one board, using `jobs` from the request above. The filter is one regex on the title:
+
+```python
+import re
+
+pm = re.compile(r"product manag|product owner|associate product manager", re.I)
+pm_jobs = [j for j in jobs if pm.search(j["title"])]
+```
+
+Then each feature is a search on the description text. For example, the pay range:
+
+```python
+import html
+from bs4 import BeautifulSoup
+
+job = pm_jobs[0]
+text = BeautifulSoup(html.unescape(job["content"]), "html.parser").get_text(" ")
+pay = re.search(r"\$([\d,]+)\s*[-–—]\s*\$([\d,]+)", text)
+if pay:
+    low, high = (int(x.replace(",", "")) for x in pay.groups())
+```
+
+Not every posting lists pay (Stripe's don't, for example), so check for a match before using it.
+
 The most useful trick was searching only the requirements section of each posting ("What you bring," "Qualifications," and so on) instead of the whole thing. Otherwise a posting at an AI company counts as "asking for AI" just because the "About us" paragraph says the company builds AI. 84% of postings mention AI somewhere, but only 58% mention it in the requirements.
 
 Check your regexes by reading real postings. I only caught that "intern" was matching "Internal" (labeling a Staff PM role as an internship) by doing that.
