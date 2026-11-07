@@ -90,6 +90,8 @@ The dataset has 482 postings from 54 companies and 33 columns, pulled on Novembe
 
 *Midpoint of the listed annual base pay range. Only 2 of the intern/associate postings list annual pay.
 
+Level comes from the job title. "Product Manager" means the title had no level in it (no "Senior," "Staff," etc.), so it also includes senior roles at companies that don't put levels in their titles.
+
 - Industries: Fintech (124), Data & AI (113), Consumer (68), Software & dev tools (65), Security & infrastructure (53), Gaming (38), other (21)
 - Work mode: 122 remote, 137 hybrid, 223 onsite or not stated
 - 73% of postings are in the US. 63% list annual pay, and 79% list a number of years of experience.
