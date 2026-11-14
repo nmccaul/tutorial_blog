@@ -73,6 +73,8 @@ Not every posting lists pay (Stripe's don't, for example), so check for a match 
 
 The most useful trick was searching only the requirements section of each posting ("What you bring," "Qualifications," and so on) instead of the whole thing. Otherwise a posting at an AI company counts as "asking for AI" just because the "About us" paragraph says the company builds AI. 84% of postings mention AI somewhere, but only 58% mention it in the requirements.
 
+This doesn't work for every posting, though. 60 postings (12%) don't have a section I could find, so for those I fall back to searching the full text. That brings the "About us" problem back: 90% of those 60 get flagged for AI, compared to 53% of postings where I did find a requirements section. So the 58% is probably a little high. Counting only postings with a requirements section, it's 53%.
+
 Check your regexes by reading real postings. I only caught that "intern" was matching "Internal" (labeling a Staff PM role as an internship) by doing that.
 
 ## The final dataset
@@ -130,6 +132,7 @@ Postings that ask for AI list more pay within most levels ($251k vs $225k for st
 
 - The data only covers companies that use Greenhouse, which leans toward venture-backed tech companies, and only the jobs open on one day.
 - Skill flags come from keyword searches, so some are wrong, and they can't tell "required" from "nice to have."
+- 12% of postings have no requirements section I could find, so their flags come from the full text and are more likely to count company blurbs as requirements.
 - Pay is mostly from US postings (81% of US postings list it, compared to 13% of non-US postings) because of state pay transparency laws.
 
 ## Links
